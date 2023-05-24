@@ -1,0 +1,80 @@
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename ='prod_style.css')}}">
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+
+    <div style = "margin-bottom: 40px; margin-top: 45px; font-size: 30px; "><center>
+    <h1 >Comparing products on Amazon vs Flipkart<h1>
+        </center>
+    </div>
+
+    <div style = "font-size: 21px; font-weight: bold ;color: brown"><center>
+      <label  >Product Name (Queried) : {{prd}}</label><br>
+        <label >Brand Name : {{brd}}</label><br>
+    </center></div>
+
+
+</head>
+<body style="background-color:ivory;">
+
+
+
+    <div class="product" id = "someid" >
+        <div class="product-img">
+            <img src={{i[6]}} title="Product title">
+        </div>
+
+        <div class="product-info" style = "color : black; font-weight : bold;">
+
+
+            <div class="price" style = "font-weight : bold; "><center>Product Ratings :
+                <span class="discount">{{prod_rat}}</span><span style ="color: gold; font-size :20 px;"> ★</span></center>
+            </div>
+            <div class="price" style = "font-weight : bold; "><center>Ratings Count :
+                <span class="discount">{{prod_rat_count}}</span></center>
+            </div>
+<!--            {% if (ecommerce_website == "Amazon") %}-->
+<!--                <div class="price" style = "font-weight : bold; color:purple" ><br><center>-->
+<!--                    E-commerce Website <br><img style = "width: 35%; height: 8%;"-->
+<!--                        src="static/images/amz.png"></center></div>-->
+<!--            {% else %}-->
+<!--                <div class="price" style = "font-weight : bold; "><center>E-commerce Website <br><img style = "width: 20%; height: 20%;"-->
+<!--                        src="static/images/flk.png"></div></center>-->
+<!--             {% endif %}-->
+
+        <div class="product-btns" style = "color:blue;ß"><center>Product Link</center>
+            <ul>
+                <li><a href={{i[7]}}><i class="fa fa-cart-plus" aria-hidden="true"></i></a></li>
+
+        </div>
+            <hr>
+    </div>
+
+
+
+
+        <script type = "text/javascript">
+            function prodExt(id_given){
+            console.log(id_given)
+            var qry = "div.product-info h3[id =" + id_given + "]";
+            console.log(qry)
+
+          $.ajax({
+            url: '{{ url_for('sentimentAnalysis') }}',
+            type: 'POST',
+            data: {
+                name: id_given
+            },
+        success: function (response) {
+          window.location.replace('cmts_option');
+        },
+        error: function (error) {
+          console.log(error);
+        }
+        });};
+
+
+            </script>
+</body>
+</html>
